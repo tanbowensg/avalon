@@ -6,6 +6,7 @@ angular.module('avalon')
 		function ($scope,service,$http) {
 			$scope.test=service.test
 			$scope.joinGame=service.joinGame
+			$scope.service=service
 		}
 	])
 

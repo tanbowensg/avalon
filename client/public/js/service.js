@@ -1,27 +1,44 @@
 angular.module('avalon')
     .factory('service', ['$resource','CONFIG',
         function ($resource,CONFIG) {
+            var obj={}
             var url=CONFIG.url
+            var roomResource=$resource(url+'/room')
+            var playerResource=$resource(url+'/player')
 
-            var joinGame=function (playerName,room) {
-                console.log(room)
-                var resource=$resource(url+'/join')
+            obj.createRoom=function (roomNum) {
                 var sendData={
-                    playerName:playerName,
-                    room:room
+                    roomNum:roomNum
                 }
-                resource.save(sendData,function (res) {
+                roomResource.save(sendData,function (res) {
                     console.log(res)
                 })
             }
 
-            var test= function(){
+            obj.addPlayer=function (roomNum, playerName) {
+                var sendData={
+                    playerName:playerName,
+                    roomNum:roomNum
+                }
+                playerResource.save(sendData,function (res) {
+                    console.log(res)
+                })
+            }
+
+            obj.removePlayer=function (roomNum, playerName) {
+                var sendData={
+                    playerName:playerName,
+                    roomNum:roomNum
+                }
+                playerResource.delete(sendData,function (res) {
+                    console.log(res)
+                })
+            }
+
+            obj.test= function(){
                 console.log('test')
             }
 
-            return {
-                joinGame:joinGame,
-                test:test
-            };
+            return obj
         }
     ])

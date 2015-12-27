@@ -1,6 +1,7 @@
 <h4>我是模板</h4>
 <span></span>
 <button ng-click="test()">test</button>
-<button ng-click="joinGame('tanbowen',100)">join</button>
-<button ng-click="joinGame('guohao',200)">join</button>
-<button ng-click="joinGame('wangtao',300)">join</button>
+<button ng-click="service.createRoom('100')">创建房间100</button>
+<button ng-click="service.addPlayer('100','tanbowen')">新建玩家</button>
+<button ng-click="service.addPlayer('100','guohao')">新建玩家郭昊</button>
+<button ng-click="service.removePlayer('100','guohao')">删除玩家郭昊</button>

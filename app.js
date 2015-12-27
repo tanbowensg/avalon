@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 
-var store = require('./server/game/store');
+var gm = require('./server/game/gm');
+var store={}
 
 var app = express();
 
@@ -37,15 +38,23 @@ app.use('/users', users);
 //api
 console.log(store)
 
-app.post('/api/join',function (req,res) {
-  if(!store[req.body.room]){
-    store[req.body.room]=[]
+app.post('/api/room',function (req,res) {
+  if(!store[req.body.roomNum]){
+    gm.createRoom(store,req.body.roomNum)
   } 
-  store[req.body.room].push(req.body.player)
-  if(store[req.body.room].length===5){
-    delete store[req.body.room]
-  }
-  res.json(store)
+  // console.log(store[req.body.roomNum])
+  res.json(store[req.body.roomNum])
+})
+
+app.post('/api/player',function (req,res) {
+  gm.addPlayer(store,req.body.roomNum,req.body.playerName)
+  res.json(store[req.body.roomNum])
+})
+
+app.delete('/api/player',function (req,res) {
+  console.log(req.body)
+  gm.removePlayer(store,req.body.roomNum,req.body.playerName)
+  res.json(store[req.body.roomNum])
 })
 
 // catch 404 and forward to error handler
@@ -62,7 +71,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error: err
     });
