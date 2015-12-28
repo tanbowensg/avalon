@@ -28,6 +28,8 @@ var Room=function (room) {
     }
 
     this.removePlayer=function(name) {
+        console.log(name)
+        console.log(this.roomNum)
         this.player.playerList.removeByValue('name',name)
     }
 }
@@ -43,8 +45,8 @@ store.checkPlayerStatus=function () {
 
 Array.prototype.removeByValue=function(key,value){
     for (var i = this.length - 1; i >= 0; i--) {
-        if(this[key][i]===value){
-            this.split(i,1)
+        if(this[i][key]===value){
+            this.splice(i,1)
         }
     };
 }

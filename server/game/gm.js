@@ -25,9 +25,9 @@ gm.addPlayer = function (store, room, name) {
 }
 
 gm.removePlayer = function (store, room, name) {
-	console.log(room)
-	console.log(store)
-	console.log(store[room])
+	// console.log(room)
+	// console.log(store)
+	// console.log(store[room])
 	store[room].removePlayer(name)
 }
 

@@ -52,9 +52,9 @@ app.post('/api/player',function (req,res) {
 })
 
 app.delete('/api/player',function (req,res) {
-  console.log(req.body)
-  gm.removePlayer(store,req.body.roomNum,req.body.playerName)
-  res.json(store[req.body.roomNum])
+  // console.log("请求",req.query)
+  gm.removePlayer(store,req.query.roomNum,req.query.playerName)
+  res.json(store[req.query.roomNum])
 })
 
 // catch 404 and forward to error handler
